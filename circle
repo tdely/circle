@@ -8,7 +8,7 @@ set -o errexit
 set -o pipefail
 set -o nounset
 
-VERSION="1.1.1"
+VERSION="1.1.2"
 
 bname="$(basename ${BASH_SOURCE[0]})"
 
@@ -153,11 +153,11 @@ clear_chains()
     local chains=()
     if [ ${1} = "ipt4" ]
     then
-        chains=$(${ipt4} -L|grep Chain|awk '{print $2}')
+        chains=$(${ipt4} -nL|grep Chain|awk '{print $2}')
         local tool=${ipt4}
     elif [ ${1} = "ipt6" ]
     then
-        chains=$(${ipt6} -L|grep Chain|awk '{print $2}')
+        chains=$(${ipt6} -nL|grep Chain|awk '{print $2}')
         local tool=${ipt6}
     else
         [ ${silent} = false ] && echo "clear_chains() cannot handle '${1}'" >&2
